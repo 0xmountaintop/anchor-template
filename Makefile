@@ -1,0 +1,2 @@
+build:
+	anchor build
