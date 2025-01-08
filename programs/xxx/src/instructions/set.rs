@@ -2,7 +2,7 @@ use crate::state::Object;
 use anchor_lang::prelude::*;
 
 #[derive(Accounts)]
-pub struct UpdateObject<'info> {
+pub struct SetObject<'info> {
     user: SystemAccount<'info>,
     #[account(
         mut,
@@ -10,13 +10,13 @@ pub struct UpdateObject<'info> {
             Object::SEED_PREFIX,
             user.key().as_ref(),
         ],
-        bump = object.bump,
+        bump,
     )]
     object: Account<'info, Object>,
 }
 
-pub fn update_object(ctx: Context<UpdateObject>) -> Result<()> {
+pub fn set_object(ctx: Context<SetObject>, value: u32) -> Result<()> {
     let object = &mut ctx.accounts.object;
-    object.update();
+    object.set(value);
     Ok(())
 }

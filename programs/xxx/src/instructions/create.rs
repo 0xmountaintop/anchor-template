@@ -23,7 +23,6 @@ pub struct CreateObject<'info> {
 pub fn create_object(ctx: Context<CreateObject>) -> Result<()> {
     *ctx.accounts.object = Object {
         value: 0,
-        bump: ctx.bumps.object,
     };
 
     Ok(())
