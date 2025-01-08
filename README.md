@@ -49,7 +49,7 @@ solana config set --url devnet
 solana airdrop 2
 
 # Deploy to devnet
-anchor deploy --provider.cluster devnet
+anchor deploy --program-name xxx --provider.cluster devnet --program-keypair program-id.json
 ```
 
 For mainnet:
