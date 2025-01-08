@@ -10,14 +10,14 @@ pub mod state;
 declare_id!("your_program_id_here");
 
 #[program]
-pub mod anchor_program_example {
+pub mod xxx {
     use super::*;
 
     pub fn create_object(ctx: Context<CreateObject>) -> Result<()> {
         create::create_object(ctx)
     }
 
-    pub fn update_object(ctx: Context<UpdateObject>) -> Result<()> {
-        update::update_object(ctx)
+    pub fn set_object(ctx: Context<SetObject>, value: u32) -> Result<()> {
+        set::set_object(ctx, value)
     }
 }
