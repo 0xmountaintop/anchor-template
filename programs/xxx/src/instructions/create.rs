@@ -1,18 +1,21 @@
 use crate::state::Object;
 use anchor_lang::prelude::*;
+use anchor_spl::token::{Mint, TokenAccount};
 
 #[derive(Accounts)]
 pub struct CreateObject<'info> {
+    pub token_mint: Account<'info, Mint>,
     #[account(mut)]
-    payer: Signer<'info>,
+    user: Signer<'info>,
 
     #[account(
         init,
         space = 8 + Object::INIT_SPACE,
-        payer = payer,
+        payer = user,
         seeds = [
             Object::SEED_PREFIX,
-            payer.key().as_ref(),
+            token_mint.key().as_ref(),
+            user.key().as_ref(),
         ],
         bump,
     )]
@@ -23,6 +26,8 @@ pub struct CreateObject<'info> {
 pub fn create_object(ctx: Context<CreateObject>) -> Result<()> {
     *ctx.accounts.object = Object {
         value: 0,
+        token_mint: ctx.accounts.token_mint.key(),
+        user: ctx.accounts.user.key(),
     };
 
     Ok(())
